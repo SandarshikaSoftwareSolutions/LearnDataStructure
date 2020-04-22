@@ -1,4 +1,4 @@
-package com.datastructure.linear.sorting;
+package com.datastructure.sorting;
 
 import java.util.Arrays;
 
