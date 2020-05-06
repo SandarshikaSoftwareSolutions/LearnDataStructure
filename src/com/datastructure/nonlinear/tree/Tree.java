@@ -1,6 +1,7 @@
 package com.datastructure.nonlinear.tree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -63,6 +64,8 @@ public class Tree {
 		}
 	}
 
+	List<List<Node>> list = new ArrayList<>();
+
 	static List<Node> printGivenLevel(Node root, int level) {
 		List<Node> list = new ArrayList<>();
 		if (root == null)
@@ -75,8 +78,6 @@ public class Tree {
 		}
 		return list;
 	}
-
-	List<List<Node>> list = new ArrayList<>();
 
 	public static List<List<Node>> printLevelOrderLinebyLine(Node root) {
 		List<List<Node>> ll = new ArrayList<>();
@@ -123,6 +124,42 @@ public class Tree {
 		}
 	}
 
+	private static void leftViewOfTreeByMap(Node root) {
+		HashMap<Integer, Integer> map = new HashMap<>();
+		leftView(root, 1, map);
+		for (int i = 1; i <= map.size(); i++) {
+			System.out.print(map.get(i) + " ");
+		}
+	}
+
+	private static void leftView(Node root, int level, HashMap<Integer, Integer> map) {
+		if (root == null) {
+			return;
+		}
+		if (!map.containsKey(level)) {
+			map.put(level, root.value);
+		}
+		leftView(root.left, level + 1, map);
+		leftView(root.right, level + 1, map);
+	}
+
+	private static void rightViewOfTreeByMap(Node root) {
+		HashMap<Integer, Integer> map = new HashMap<>();
+		rightView(root, 1, map);
+		for (int i = 1; i <= map.size(); i++) {
+			System.out.print(map.get(i) + " ");
+		}
+	}
+
+	private static void rightView(Node root, int level, HashMap<Integer, Integer> map) {
+		if (root == null) {
+			return;
+		}
+			map.put(level, root.value);
+		rightView(root.left, level + 1, map);
+		rightView(root.right, level + 1, map);
+	}
+
 	public static Node searchNode(int x, Node n) {
 		if (n == null || n.value == x)
 			return n;
@@ -136,7 +173,7 @@ public class Tree {
 		if (root == null)
 			return null;
 		else if (root.left != null)
-			return findMinimum(root.left); 
+			return findMinimum(root.left);
 		return root;
 	}
 
@@ -152,25 +189,22 @@ public class Tree {
 		tree.insert(root, 3);
 		tree.insert(root, 9);
 		System.out.println("Traversing tree in order");
-		tree.traverseInOrder(root);
+		/*
+		 * tree.traverseInOrder(root); System.out.println();
+		 * System.out.println("Traversing tree pre order"); tree.traversePreOrder(root);
+		 * System.out.println(); System.out.println("Traversing tree post order");
+		 * tree.traversePostOrder(root); System.out.println();
+		 * System.out.println("Traversing tree levelorder order");
+		 * tree.traverseLevelOrderInOneLine(root); System.out.println();
+		 * System.out.println("Traversing tree levelorder order line by line");
+		 * tree.printLevelOrderLinebyLine(root); System.out.println();
+		 * tree.leftViewOfTree(root); tree.rightViewOfTree(root);
+		 * System.out.println(tree.searchNode(4, root));
+		 * System.out.println(tree.findMinimum(root)); System.out.println();
+		 */
+		leftViewOfTreeByMap(root);
 		System.out.println();
-		System.out.println("Traversing tree pre order");
-		tree.traversePreOrder(root);
-		System.out.println();
-		System.out.println("Traversing tree post order");
-		tree.traversePostOrder(root);
-		System.out.println();
-		System.out.println("Traversing tree levelorder order");
-		tree.traverseLevelOrderInOneLine(root);
-		System.out.println();
-		System.out.println("Traversing tree levelorder order line by line");
-		tree.printLevelOrderLinebyLine(root);
-		System.out.println();
-		tree.leftViewOfTree(root);
-		tree.rightViewOfTree(root);
-		System.out.println(tree.searchNode(4, root));
-		System.out.println(tree.findMinimum(root));
-		
+		rightViewOfTreeByMap(root);
 	}
 
 }
