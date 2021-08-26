@@ -114,6 +114,7 @@ public class MyLinkedList {
 		deleteNodeAfterNode(ll, 22);
 		System.out.println("After deleting head Node After 22 the list is : "+size);
 		printlist(ll);
+		System.out.println("testing testing");
 //		deleteNodeAfterNode(ll, 52);
 	}
 
